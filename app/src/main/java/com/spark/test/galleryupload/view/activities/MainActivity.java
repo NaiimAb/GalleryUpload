@@ -1,8 +1,10 @@
-package com.spark.test.galleryupload;
+package com.spark.test.galleryupload.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.spark.test.galleryupload.R;
 
 public class MainActivity extends AppCompatActivity {
 

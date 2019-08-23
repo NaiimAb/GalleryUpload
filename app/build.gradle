@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding{
+        enabled = true
+    }
 }
 
 dependencies {
@@ -39,5 +43,5 @@ dependencies {
     // Retrofit to fetch data from server
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
 
-    
+
 }
