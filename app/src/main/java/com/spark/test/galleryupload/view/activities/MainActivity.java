@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Start binding layout and data from ViewModel
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        galleryViewModel = new GalleryViewModel();
+        galleryViewModel = new GalleryViewModel(this);
         activityMainBinding.setGalleryViewModel(galleryViewModel);
 
     }
