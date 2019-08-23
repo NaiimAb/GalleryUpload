@@ -41,7 +41,11 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     // Retrofit to fetch data from server
+    // Converter Gson to convert the json data
+    // RxJava adapter from Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.6.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava:2.6.0"
 
     // Adding Reactivex library (which is a module that adds the minimum classes to RxJava that make
     // writing reactive components in Android applications easy and hassle-free)
