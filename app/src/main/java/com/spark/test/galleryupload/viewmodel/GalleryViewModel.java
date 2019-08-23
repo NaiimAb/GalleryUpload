@@ -3,9 +3,11 @@ package com.spark.test.galleryupload.viewmodel;
 import android.content.Context;
 import android.view.View;
 
+import com.spark.test.galleryupload.MyApp;
+import com.spark.test.galleryupload.R;
+import com.spark.test.galleryupload.data.GalleryDataService;
 import com.spark.test.galleryupload.model.GalleryItem;
 
-import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,10 @@ import java.util.Observable;
 
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
+import rx.android.schedulers.AndroidSchedulers;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by Naiim Ab. on 8/23/2019
@@ -22,8 +28,8 @@ public class GalleryViewModel extends Observable {
 
     public ObservableInt galleryProgress;
     public ObservableField<String> messageLabel;
-    public ObservableInt galleryList;
-    public ObservableInt galleryLabel;
+    private ObservableInt galleryList;
+    private ObservableInt galleryLabel;
     private Context context;
     private List<GalleryItem> galleryItems;
     private Subscription subscription;
@@ -42,7 +48,30 @@ public class GalleryViewModel extends Observable {
     }
 
     private void fetchData() {
-
+        unSubscribeFromObservable();
+        MyApp myApp = MyApp.getInstance(context);
+        GalleryDataService dataService = myApp.getGalleryService();
+        subscription = dataService.fetchGallery()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(myApp.subscribeScheduler())
+                .subscribe(new Action1<List<GalleryItem>>() {
+                    @Override
+                    public void call(List<GalleryItem> galleryItems) {
+                        galleryProgress.set(View.GONE);
+                        galleryLabel.set(View.GONE);
+                        galleryList.set(View.VISIBLE);
+                        changeGallery(galleryItems);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        messageLabel.set(context.getString(R.string.error_loading_gallery));
+                        galleryProgress.set(View.GONE);
+                        galleryLabel.set(View.VISIBLE);
+                        galleryList.set(View.GONE);
+                    }
+                });
     }
 
     public List<GalleryItem> getGalleryItems() {
@@ -50,7 +79,9 @@ public class GalleryViewModel extends Observable {
     }
 
     private void unSubscribeFromObservable() {
-
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     private void changeGallery(List<GalleryItem> galleryItems) {

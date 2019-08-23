@@ -9,11 +9,14 @@ import com.spark.test.galleryupload.R;
 import com.spark.test.galleryupload.databinding.ActivityMainBinding;
 import com.spark.test.galleryupload.viewmodel.GalleryViewModel;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Created by Naiim Ab. on 8/23/2019
  * Project: Gallery Upload
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Observer {
 
     private ActivityMainBinding activityMainBinding;
     private GalleryViewModel galleryViewModel;
@@ -27,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         galleryViewModel = new GalleryViewModel(this);
         activityMainBinding.setGalleryViewModel(galleryViewModel);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        galleryViewModel.reset();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
 
     }
 }
