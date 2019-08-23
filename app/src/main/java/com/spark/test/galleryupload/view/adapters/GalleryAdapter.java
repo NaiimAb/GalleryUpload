@@ -59,6 +59,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryA
             this.galleryItemBinding = galleryItemBinding;
         }
 
+
         void bindPhoto(GalleryItem galleryItem) {
 
         }
