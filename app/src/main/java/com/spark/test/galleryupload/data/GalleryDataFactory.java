@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class GalleryDataFactory {
 
-    private final static String BASE_URL = "http://192.168.1.4/galleryapp/";
+    public final static String BASE_URL = "http://192.168.1.4/galleryapp/";
 
     public static GalleryDataService retrieveData() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)

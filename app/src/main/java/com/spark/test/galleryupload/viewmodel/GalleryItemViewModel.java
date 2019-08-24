@@ -1,9 +1,12 @@
 package com.spark.test.galleryupload.viewmodel;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.spark.test.galleryupload.R;
+import com.spark.test.galleryupload.data.GalleryDataFactory;
 import com.spark.test.galleryupload.model.GalleryItem;
 
 import androidx.databinding.BaseObservable;
@@ -29,12 +32,12 @@ public class GalleryItemViewModel extends BaseObservable {
     }
 
     public String getImageURL() {
-        return galleryItem.getImageURL();
+        return GalleryDataFactory.BASE_URL + galleryItem.getImageURL();
     }
 
     @BindingAdapter({"image"})
     public static void loadGalleryImage(ImageView view, String url) {
-        Glide.with(view.getContext()).load(url).into(view);
+        Glide.with(view.getContext()).load(url).error(R.mipmap.ic_launcher).into(view);
     }
 
 

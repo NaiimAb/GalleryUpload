@@ -23,7 +23,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryA
 
     private List<GalleryItem> galleryItemList;
 
-    public void GallerAdapter() {
+    public GalleryAdapter() {
         this.galleryItemList = Collections.emptyList();
     }
 
@@ -61,7 +61,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryA
 
 
         void bindPhoto(GalleryItem galleryItem) {
-
+            if (galleryItemBinding.getGalleryItemViewModel() == null) {
+                galleryItemBinding.setGalleryItemViewModel(
+                        new GalleryItemViewModel(itemView.getContext(), galleryItem));
+            } else {
+                galleryItemBinding.getGalleryItemViewModel().setGalleryItem(galleryItem);
+            }
         }
     }
 }
