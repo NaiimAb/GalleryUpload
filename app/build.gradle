@@ -21,6 +21,10 @@ android {
     dataBinding{
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -51,5 +55,8 @@ dependencies {
     // writing reactive components in Android applications easy and hassle-free)
     // Change back to RxAndroid 1 since Retrofit RxJava Adapter Works with RxJava 1.x
     implementation 'io.reactivex:rxandroid:1.0.1'
+
+    // Library that make requesting permissions easy in Android
+    implementation 'com.karumi:dexter:5.0.0'
 
 }

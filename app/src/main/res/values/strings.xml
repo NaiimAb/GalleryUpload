@@ -2,4 +2,10 @@
     <string name="app_name">Gallery Upload</string>
     <string name="error_loading_gallery">Error Fetching Data! Please try later</string>
     <string name="upload_new_picture">Upload New Picture</string>
+    <string name="error_occurred">Error occurred!</string>
+    <string name="permission_required_dialog_title">Permissions Required</string>
+    <string name="permission_required_dialog_desc">Need Permission to use this feature. Please grant permission from Settings</string>
+    <string name="choose_dialog_take_pic">Take a Picture</string>
+    <string name="choose_dialog_gallery">Choose From Gallery</string>
+    <string name="cancel">Cancel</string>
 </resources>

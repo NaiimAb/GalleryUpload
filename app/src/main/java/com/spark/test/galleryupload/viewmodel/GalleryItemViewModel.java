@@ -1,12 +1,10 @@
 package com.spark.test.galleryupload.viewmodel;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.spark.test.galleryupload.R;
 import com.spark.test.galleryupload.data.GalleryDataFactory;
 import com.spark.test.galleryupload.model.GalleryItem;
 
