@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Gallery Upload</string>
     <string name="error_loading_gallery">Error Fetching Data! Please try later</string>
+    <string name="upload_new_picture">Upload New Picture</string>
 </resources>

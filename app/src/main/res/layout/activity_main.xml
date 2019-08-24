@@ -13,8 +13,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/uploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/upload_new_picture"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/white"
+            android:background="@color/blue"/>
 
         <ProgressBar
             android:layout_centerInParent="true"
@@ -40,6 +49,8 @@
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/gallery_item"/>
+
+
 
 
     </RelativeLayout>

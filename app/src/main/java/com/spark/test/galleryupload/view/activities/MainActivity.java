@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.spark.test.galleryupload.R;
 import com.spark.test.galleryupload.databinding.ActivityMainBinding;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         activityMainBinding.setGalleryViewModel(galleryViewModel);
 
         createGalleryAdapter(activityMainBinding.galleryList);
+        onImageUpload(activityMainBinding.uploadImage);
         setObserver(galleryViewModel);
+
     }
 
     private void createGalleryAdapter(RecyclerView recyclerView) {
@@ -45,6 +49,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
         recyclerView.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    private void onImageUpload(Button imageUpload) {
+        imageUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void setObserver(Observable observable){
