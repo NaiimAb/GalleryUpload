@@ -1,5 +1,8 @@
 package com.spark.test.galleryupload.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -9,22 +12,22 @@ import java.io.Serializable;
 public class GalleryItem implements Serializable {
 
 
+    @SerializedName("id")
+    @Expose
     private Integer ID;
 
+    @SerializedName("path")
+    @Expose
     private String imageURL;
 
-    private String thumbnailUrl;
-
-    public GalleryItem(Integer ID, String imageUrl, String thumbnailUrl) {
+    public GalleryItem(Integer ID, String imageUrl) {
 
         this.ID = ID;
         this.imageURL = imageUrl;
-        this.thumbnailUrl = thumbnailUrl;
     }
 
     public Integer getID() { return ID;}
 
     public String getImageURL() { return imageURL;}
 
-    public String getThumbnailUrl() { return thumbnailUrl;}
 }

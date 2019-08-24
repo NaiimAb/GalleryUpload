@@ -32,10 +32,6 @@ public class GalleryItemViewModel extends BaseObservable {
         return galleryItem.getImageURL();
     }
 
-    public String getThumbnailUrl() {
-        return galleryItem.getThumbnailUrl();
-    }
-
     @BindingAdapter({"image"})
     public static void loadGalleryImage(ImageView view, String url) {
         Glide.with(view.getContext()).load(url).into(view);

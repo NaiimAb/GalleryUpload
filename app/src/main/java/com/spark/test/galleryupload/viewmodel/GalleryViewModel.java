@@ -1,6 +1,7 @@
 package com.spark.test.galleryupload.viewmodel;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.spark.test.galleryupload.MyApp;
@@ -19,6 +20,8 @@ import rx.android.schedulers.AndroidSchedulers;
 
 import rx.Subscription;
 import rx.functions.Action1;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * Created by Naiim Ab. on 8/23/2019

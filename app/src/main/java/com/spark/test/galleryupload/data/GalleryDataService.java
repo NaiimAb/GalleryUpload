@@ -14,6 +14,6 @@ import rx.Observable;
 public interface GalleryDataService  {
 
     // Add Server parameters to fetch data
-    @GET("")
+    @GET("api/get-gallery.php?user_id=1")
     Observable<List<GalleryItem>> fetchGallery();
 }
