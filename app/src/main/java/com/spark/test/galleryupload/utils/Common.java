@@ -20,7 +20,7 @@ public class Common {
 
     /**
      * Create file with current timestamp name
-     * @throws IOException
+     * @throws IOException - Throws IOException on Error
      */
     public static File createImageFile(Context context) throws IOException {
         // Create an image file name
@@ -33,7 +33,7 @@ public class Common {
     /**
      * Get real file path from URI
      */
-    public String getRealPathFromUri(Context context, Uri contentUri) {
+    public static String getRealPathFromUri(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
             String[] proj = { MediaStore.Images.Media.DATA };

@@ -21,6 +21,8 @@ import com.spark.test.galleryupload.databinding.ActivityMainBinding;
 import com.spark.test.galleryupload.utils.Common;
 import com.spark.test.galleryupload.view.adapters.GalleryAdapter;
 import com.spark.test.galleryupload.viewmodel.GalleryViewModel;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -177,10 +179,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
-
-
+                Uri photoToUri = Uri.fromFile(mPhotoFile);
+                startImageEditor(photoToUri);
             } else if (requestCode == REQUEST_GALLERY_PHOTO) {
-
+                Uri selectedImage = data.getData();
+                Uri realPhotoUri = Uri.fromFile(new File(Common.getRealPathFromUri(this, selectedImage)));
+                startImageEditor(realPhotoUri);
             }
         }
     }
@@ -217,6 +221,15 @@ public class MainActivity extends AppCompatActivity implements Observer {
         Uri uri = Uri.fromParts("package", getPackageName(), null);
         intent.setData(uri);
         startActivityForResult(intent, 101);
+    }
+
+    // Start cropping image activity
+    private void startImageEditor(Uri imageUri) {
+        // start cropping activity for pre-acquired image saved on the device
+        CropImage.activity(imageUri)
+                .setAllowRotation(true)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
     }
 
 

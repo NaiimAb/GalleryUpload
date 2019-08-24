@@ -59,4 +59,7 @@ dependencies {
     // Library that make requesting permissions easy in Android
     implementation 'com.karumi:dexter:5.0.0'
 
+    // Library used to crop and rotate images
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
 }
