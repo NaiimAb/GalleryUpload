@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.spark.test.galleryupload.R;
 import com.spark.test.galleryupload.data.GalleryDataFactory;
 import com.spark.test.galleryupload.model.GalleryItem;
@@ -37,7 +38,8 @@ public class GalleryItemViewModel extends BaseObservable {
 
     @BindingAdapter({"image"})
     public static void loadGalleryImage(ImageView view, String url) {
-        Glide.with(view.getContext()).load(url).error(R.mipmap.ic_launcher).into(view);
+        Glide.with(view.getContext()).load(url).thumbnail(0.5f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(view);
     }
 
 

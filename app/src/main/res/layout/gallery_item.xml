@@ -9,7 +9,7 @@
             type="com.spark.test.galleryupload.viewmodel.GalleryItemViewModel" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/item_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,21 +18,25 @@
         android:layout_marginTop="20dp"
         app:cardBackgroundColor="#EEE"
         app:cardCornerRadius="5dp"
-        app:cardMaxElevation="5dp">
+        app:cardMaxElevation="5dp">-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.spark.test.galleryupload.utils.SquareRelativeLayout
+            android:id="@+id/item_photo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/galleryImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:adjustViewBounds="true"
+                android:scaleType="center"
                 android:contentDescription="@null"
                 app:image="@{galleryItemViewModel.imageURL}" />
 
-        </RelativeLayout>
+        </com.spark.test.galleryupload.utils.SquareRelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    <!--</androidx.cardview.widget.CardView>-->
 
 </layout>

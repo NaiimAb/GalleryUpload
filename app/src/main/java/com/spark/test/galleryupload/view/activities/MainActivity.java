@@ -2,6 +2,7 @@ package com.spark.test.galleryupload.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         // Setting up RecycleView Adapter
         GalleryAdapter adapter = new GalleryAdapter();
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
 
     private void setObserver(Observable observable){
