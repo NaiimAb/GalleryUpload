@@ -16,5 +16,6 @@ import retrofit2.http.Part;
 public interface ImageUploaderService {
     @Multipart
     @POST("api/upload-image.php")
-    Call<ImageStatusItem> uploadImage(@Part("user_id") RequestBody userId, @Part MultipartBody.Part file, @Part("name") RequestBody name);
+    Call<ImageStatusItem> uploadImage(@Part("user_id") RequestBody userId, @Part MultipartBody.Part file, @Part("name") RequestBody name,
+                                      @Part("update") RequestBody update);
 }

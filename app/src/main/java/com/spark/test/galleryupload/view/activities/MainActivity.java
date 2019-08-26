@@ -1,7 +1,9 @@
 package com.spark.test.galleryupload.view.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,6 +25,7 @@ import com.spark.test.galleryupload.utils.Common;
 import com.spark.test.galleryupload.view.adapters.GalleryAdapter;
 import com.spark.test.galleryupload.viewmodel.GalleryViewModel;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageActivity;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private final int REQUEST_TAKE_PHOTO = 1;
     private final int REQUEST_GALLERY_PHOTO = 2;
     private final int REQUEST_UPLOAD_NEW_IMAGE = 3;
-    private final int REQUEST_UPLOAD_UPDATED_IMAGE = 3;
+    private final int REQUEST_UPLOAD_UPDATED_IMAGE = 4;
     private File mPhotoFile;
 
     @Override
@@ -180,11 +183,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
                 Uri photoToUri = Uri.fromFile(mPhotoFile);
-                startImageEditor(photoToUri, REQUEST_UPLOAD_NEW_IMAGE);
+                startImageEditor(this, photoToUri, REQUEST_UPLOAD_NEW_IMAGE);
             } else if (requestCode == REQUEST_GALLERY_PHOTO) {
                 Uri selectedImage = data.getData();
                 Uri realPhotoUri = Uri.fromFile(new File(Common.getRealPathFromUri(this, selectedImage)));
-                startImageEditor(realPhotoUri, REQUEST_UPLOAD_NEW_IMAGE);
+                startImageEditor(this, realPhotoUri, REQUEST_UPLOAD_NEW_IMAGE);
             } else if (requestCode == REQUEST_UPLOAD_NEW_IMAGE) {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 Uri resultUri = result.getUri();
@@ -194,6 +197,18 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 imageUploadItem.setUserID(1);
                 imageUploadItem.setImageFile(file);
                 imageUploadItem.setFileName(Common.createFileName() + fileExt);
+                imageUploadItem.setUpdateImage(false);
+                galleryViewModel.uploadImage(imageUploadItem);
+            } else if (requestCode == REQUEST_UPLOAD_UPDATED_IMAGE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Uri resultUri = result.getUri();
+                Common.removeFile(data.getStringExtra("filePath"));
+                ImageUploadItem imageUploadItem = new ImageUploadItem();
+                File file = new File(resultUri.getPath());
+                imageUploadItem.setUserID(1);
+                imageUploadItem.setImageFile(file);
+                imageUploadItem.setFileName(data.getStringExtra("fileOriginalName"));
+                imageUploadItem.setUpdateImage(true);
                 galleryViewModel.uploadImage(imageUploadItem);
             }
         }
@@ -237,13 +252,13 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     // Start cropping image activity
-    private void startImageEditor(Uri imageUri, int requestCode) {
+    public void startImageEditor(Context context, Uri imageUri, int requestCode) {
         // start cropping activity for pre-acquired image saved on the device
         Intent intent = CropImage.activity(imageUri)
                 .setAllowRotation(true)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setInitialCropWindowPaddingRatio(0)
-                .getIntent(this);
+                .getIntent(context);
         startActivityForResult(intent, requestCode);
     }
 

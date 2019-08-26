@@ -23,6 +23,11 @@ public class ImageUploadItem {
     @Expose
     private String fileName;
 
+    @SerializedName("update")
+    @Expose
+    private Boolean updateImage;
+
+
     public File getImageFile() {
         return imageFile;
     }
@@ -42,4 +47,8 @@ public class ImageUploadItem {
     public String getFileName() { return fileName;}
 
     public void setFileName(String fileName) { this.fileName = fileName;}
+
+    public Boolean getUpdateImage() { return updateImage;}
+
+    public void setUpdateImage(Boolean updateImage) { this.updateImage = updateImage;}
 }

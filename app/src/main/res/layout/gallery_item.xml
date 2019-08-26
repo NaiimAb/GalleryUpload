@@ -12,7 +12,8 @@
         <com.spark.test.galleryupload.utils.SquareRelativeLayout
             android:id="@+id/item_photo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{galleryItemViewModel::onItemClick}">
 
             <ImageView
                 android:id="@+id/galleryImage"

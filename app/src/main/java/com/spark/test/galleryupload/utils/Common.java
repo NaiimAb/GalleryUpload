@@ -2,12 +2,15 @@ package com.spark.test.galleryupload.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -55,6 +58,44 @@ public class Common {
             if (cursor != null) {
                 cursor.close();
             }
+        }
+    }
+
+    /**
+     * Save a remote bitmap to a file in Android
+     */
+    public static String saveImage(Bitmap image) {
+        String savedImagePath = null;
+
+        String imageFileName = "tmp_" + createFileName() + ".jpg";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                + "/SparkGallery_temp");
+        boolean success = true;
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs();
+        }
+        if (success) {
+            File imageFile = new File(storageDir, imageFileName);
+            savedImagePath = imageFile.getAbsolutePath();
+            try {
+                OutputStream fOut = new FileOutputStream(imageFile);
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                fOut.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return savedImagePath;
+    }
+
+    /**
+     * Remove a file from given path
+     */
+
+    public static void removeFile(String path) {
+        File fdelete = new File(path);
+        if (fdelete.exists()) {
+            boolean deleted = fdelete.delete();
         }
     }
 

@@ -87,11 +87,11 @@ public class GalleryViewModel extends Observable {
         RequestBody image = RequestBody.create(MediaType.parse("*/*"), imageUploadItem.getImageFile());
         RequestBody fileName = RequestBody.create(MediaType.parse("text/plain"), imageUploadItem.getFileName());
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", imageUploadItem.getFileName(), image);
-
+        RequestBody update = RequestBody.create(MediaType.parse("text/plain"), imageUploadItem.getUpdateImage().toString());
 
         MyApp myApp = MyApp.getInstance(context);
         ImageUploaderService imageUploaderService = myApp.getImageUploaderService();
-        final Call<ImageStatusItem> response = imageUploaderService.uploadImage(userId, fileToUpload, fileName);
+        final Call<ImageStatusItem> response = imageUploaderService.uploadImage(userId, fileToUpload, fileName, update);
 
         response.enqueue(new Callback<ImageStatusItem>() {
             @Override
@@ -103,6 +103,7 @@ public class GalleryViewModel extends Observable {
                 } else {
                     Toast.makeText(context, R.string.error_occurred, Toast.LENGTH_LONG).show();
                     try {
+                        assert response.errorBody() != null;
                         Log.e("Response", response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
