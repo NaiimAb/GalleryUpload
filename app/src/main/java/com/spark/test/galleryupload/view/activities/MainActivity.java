@@ -18,6 +18,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.spark.test.galleryupload.BuildConfig;
 import com.spark.test.galleryupload.R;
 import com.spark.test.galleryupload.databinding.ActivityMainBinding;
+import com.spark.test.galleryupload.model.ImageUploadItem;
 import com.spark.test.galleryupload.utils.Common;
 import com.spark.test.galleryupload.view.adapters.GalleryAdapter;
 import com.spark.test.galleryupload.viewmodel.GalleryViewModel;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private GalleryViewModel galleryViewModel;
     private final int REQUEST_TAKE_PHOTO = 1;
     private final int REQUEST_GALLERY_PHOTO = 2;
+    private final int REQUEST_UPLOAD_NEW_IMAGE = 3;
+    private final int REQUEST_UPLOAD_UPDATED_IMAGE = 3;
     private File mPhotoFile;
 
     @Override
@@ -130,9 +133,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
                             // show alert dialog navigating to Settings
-                            for(int i = 0; i < report.getDeniedPermissionResponses().size(); i++) {
-                                Log.e("sds", report.getDeniedPermissionResponses().get(i).getPermissionName());
-                            }
                             showSettingsDialog();
                         }
                     }
@@ -180,12 +180,25 @@ public class MainActivity extends AppCompatActivity implements Observer {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_TAKE_PHOTO) {
                 Uri photoToUri = Uri.fromFile(mPhotoFile);
-                startImageEditor(photoToUri);
+                startImageEditor(photoToUri, REQUEST_UPLOAD_NEW_IMAGE);
             } else if (requestCode == REQUEST_GALLERY_PHOTO) {
                 Uri selectedImage = data.getData();
                 Uri realPhotoUri = Uri.fromFile(new File(Common.getRealPathFromUri(this, selectedImage)));
-                startImageEditor(realPhotoUri);
+                startImageEditor(realPhotoUri, REQUEST_UPLOAD_NEW_IMAGE);
+            } else if (requestCode == REQUEST_UPLOAD_NEW_IMAGE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Uri resultUri = result.getUri();
+                ImageUploadItem imageUploadItem = new ImageUploadItem();
+                File file = new File(resultUri.getPath());
+                String fileExt = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
+                imageUploadItem.setUserID(1);
+                imageUploadItem.setImageFile(file);
+                imageUploadItem.setFileName(Common.createFileName() + fileExt);
+                galleryViewModel.uploadImage(imageUploadItem);
             }
+        }
+        else if(resultCode != 0) {
+            Toast.makeText(this, R.string.error_occurred, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -224,12 +237,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     // Start cropping image activity
-    private void startImageEditor(Uri imageUri) {
+    private void startImageEditor(Uri imageUri, int requestCode) {
         // start cropping activity for pre-acquired image saved on the device
-        CropImage.activity(imageUri)
+        Intent intent = CropImage.activity(imageUri)
                 .setAllowRotation(true)
                 .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
+                .setInitialCropWindowPaddingRatio(0)
+                .getIntent(this);
+        startActivityForResult(intent, requestCode);
     }
 
 

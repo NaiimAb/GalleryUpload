@@ -18,16 +18,25 @@ import java.util.Locale;
  */
 public class Common {
 
+    public final static String BASE_URL = "http://192.168.1.28/galleryapp/";
+
+    /**
+     * Create Random String for naming files using Date
+     */
+    public static String createFileName() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+        return timeStamp + "_JPEG_";
+    }
+
     /**
      * Create file with current timestamp name
      * @throws IOException - Throws IOException on Error
      */
     public static File createImageFile(Context context) throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
-        String mFileName = "JPEG_" + timeStamp + "_";
+
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return File.createTempFile(mFileName, ".jpg", storageDir);
+        return File.createTempFile(createFileName(), ".jpg", storageDir);
     }
 
     /**

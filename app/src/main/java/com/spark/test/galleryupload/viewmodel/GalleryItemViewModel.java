@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.spark.test.galleryupload.data.GalleryDataFactory;
 import com.spark.test.galleryupload.model.GalleryItem;
+import com.spark.test.galleryupload.utils.Common;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.BindingAdapter;
@@ -31,7 +32,7 @@ public class GalleryItemViewModel extends BaseObservable {
     }
 
     public String getImageURL() {
-        return GalleryDataFactory.BASE_URL + galleryItem.getImageURL();
+        return Common.BASE_URL + galleryItem.getImageURL();
     }
 
     @BindingAdapter({"image"})
