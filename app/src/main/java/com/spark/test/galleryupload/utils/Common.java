@@ -21,7 +21,7 @@ import java.util.Locale;
  */
 public class Common {
 
-    public final static String BASE_URL = "http://192.168.1.28/galleryapp/";
+    public final static String BASE_URL = "http://naiimab.me/galleryapp/";
 
     /**
      * Create Random String for naming files using Date

@@ -32,6 +32,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "org.hamcrest:hamcrest-all:1.3"
+    testImplementation("org.powermock:powermock-module-junit4:1.6.2")
+    testImplementation("org.powermock:powermock-api-mockito:1.6.2")
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.4.0-RC1'
 
     // Support libraries from Google Androidx
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -54,7 +58,8 @@ dependencies {
     // Adding Reactivex library (which is a module that adds the minimum classes to RxJava that make
     // writing reactive components in Android applications easy and hassle-free)
     // Change back to RxAndroid 1 since Retrofit RxJava Adapter Works with RxJava 1.x
-    implementation 'io.reactivex:rxandroid:1.0.1'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.3.8'
 
     // Library that make requesting permissions easy in Android
     implementation 'com.karumi:dexter:5.0.0'

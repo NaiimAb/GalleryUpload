@@ -64,7 +64,8 @@ public class GalleryViewModel extends Observable {
         galleryItems.clear();
         MyApp myApp = MyApp.getInstance(context);
         GalleryDataService dataService = myApp.getGalleryService();
-        subscription = dataService.fetchGallery()
+        // Get gallery of user id = 1
+        subscription = dataService.fetchGallery(1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(myApp.subscribeScheduler())
                 .subscribe(galleryItems -> {
